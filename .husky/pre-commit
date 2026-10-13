@@ -1,0 +1,4 @@
+yarn lint-staged
+yarn lint
+yarn typecheck
+yarn test

@@ -1,0 +1,2 @@
+# Expo loads dotenv files itself; do not execute .env.local as a shell script.
+yarn build:check

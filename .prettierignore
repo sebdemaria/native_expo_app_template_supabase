@@ -1,0 +1,14 @@
+node_modules/
+.expo/
+.expo-shared/
+android/
+ios/
+dist/
+build/
+coverage/
+.husky/_/
+supabase/.temp/
+supabase/.branches/
+*.lock
+app.json
+eas.json

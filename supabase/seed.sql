@@ -1,0 +1,1 @@
+-- Seed data will be added with the first catalog and profile migrations.
