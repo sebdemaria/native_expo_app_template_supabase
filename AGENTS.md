@@ -178,59 +178,25 @@ Prettier uses 4 spaces, double quotes, width 88, and one JSX attribute per line.
 - Never weaken RLS, validation, idempotency, or deterministic nutrition rules to accelerate a demo.
 - Do not commit, push, deploy, or create external projects unless the user explicitly requests it.
 
-# Ponytail, lazy senior dev mode
+## Agent Skills And Graphify
 
-You are a lazy senior developer. The best code is the code never written. You solve the whole problem with the least new code. End your reply with one or two lines: what you skipped or did not check, and any risk the user must know.
+OpenCode includes using-agent-skills, Ponytail, and Graphify through its global
+`instructions` configuration. When their instructions are already in context,
+apply them without loading their `SKILL.md` files again. In other environments,
+load the applicable skills if available; do not assume global configuration exists.
 
-## Ponytail — reglas permanentes
+Apply workflows proportionally to the task. Informational questions do not require
+a development workflow or repository exploration. Load only other relevant skills.
+Project-specific invariants and required validation in this file must be preserved.
 
-Las instrucciones siguientes incorporan el comportamiento de Ponytail.
-No cargues otra copia de la misma skill salvo que necesites recursos
-adicionales que no estén incluidos aquí.
+For code analysis, planning, implementation, or review, consult Graphify when
+available. Retrieve only relevant nodes and dependencies, and verify them against
+current source. If only `graphify-out/graph.json` exists, query it selectively;
+never include the whole graph in context. Do not regenerate the graph for every
+question; refresh it when needed for the affected code, within the current agent's
+permissions. A read-only agent must not write graph artifacts or modify the repository.
 
-## Before you write
-
-Read the task and the code it touches. List every place your change must reach: callers, tests, fixtures, config, exports. Check what your change could break for users: data it would destroy or expose, callers that stop working. That is scope. Extra features are not.
-
-## The smallest complete change
-
-Take the first option that fully works:
-
-1. Does it need to exist? Skip features, options and flexibility nobody asked for, and name them in one line. A vague request ("build me X") gets the smallest version that does the core job.
-2. Already in this codebase (a helper, component, service, pattern)? Use it the way the surrounding code does.
-3. Standard library or a platform feature? Use it, unless the project has its own. A house component beats a native widget.
-4. An installed dependency? Use it. Never add a dependency for a few lines.
-5. Can it be one line a reader gets at a glance? One line.
-6. Otherwise: the minimum code that works.
-
-- Be lazy about the solution, never about the change itself: finish every part the task needs, including the callers, tests and fixtures your change breaks.
-- No abstraction, wrapper, type conversion, option, config, boilerplate or "for later" code nobody asked for. Keep values in the form the platform already gives you. Deletion beats addition. Keep the structure the codebase already has: its layers, interfaces and conventions.
-- The shortest working diff wins, once you know everything it must touch. A one-liner that needs decoding is not short.
-- Comment only the why the code cannot show, in one line.
-- Bug fix: before you edit, grep every caller of the function you touch, then fix the root cause once in the shared code.
-- Code you move or merge keeps its error handling and validation.
-- Between options of equal size, take the one that is correct on edge cases.
-- Lazy code without its check is unfinished: new non-trivial logic (a branch, a loop, a parser, money or security, or a whole new script or app) leaves one small test or an assert-based self-check. Trivial changes need none.
-- A shortcut with a known limit gets a code comment in this form: `shortcut: <the limit>, <when to upgrade>`.
-
-Never cut: validation at trust boundaries, error handling that prevents data loss, security, accessibility, the calibration real hardware needs, anything the user asked for.
-
-(Yes, this file also applies to agents working on the ponytail repo itself. Especially to them.)
-
-## Graphify
-
-Para tareas que impliquen analizar, planificar, implementar o revisar código,
-cargá la skill graphify mediante la herramienta skill si está disponible y
-todavía no fue cargada en el contexto actual. Aplicá su procedimiento.
-
-Consultá únicamente los nodos y dependencias relevantes para la tarea.
-Verificá los resultados contra el código actual; no asumas que el grafo
-está actualizado.
-
-Si solo existe graphify-out/graph.json, consultalo selectivamente.
-No incorpores el grafo completo al contexto.
-
-Si Graphify no está disponible, continuá con búsquedas acotadas en el código
-e informá esa limitación al entregar el resultado.
-
-Para preguntas generales que no dependan del repositorio, no consultes el grafo.
+If Graphify is unavailable, continue with narrow source searches and report a
+material limitation when it affects the result. General questions unrelated to
+the repository do not require graph queries. Archify is a separate diagram skill,
+not a substitute for Graphify dependency analysis.
